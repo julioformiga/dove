@@ -1,8 +1,8 @@
-# Dov'è ...?
+# 🔍 Dov'è ...❓
 
 A temporary way of looking for users in 42 Firenze
 
-## For impatient users
+## 🏃 For impatient users
 
 ```bash
 git clone https://github.com/julioformiga/dove.git
@@ -13,12 +13,12 @@ cd dove
 or in 42 Firenze
 
 ```bash
-./dist/dove user3
+./dist/dove [user]
 ```
 
 ![Example](https://github.com/julioformiga/dove/blob/master/dove_example.jpg)
 
-## For careful users (and Python friends)
+## 🐍 For careful (and friendly Python) users
 
 Install Rich and Pyinstaller lib
 
@@ -26,6 +26,6 @@ Install Rich and Pyinstaller lib
 pyinstaller -F dove.py
 ```
 
-## Why?
+## Why⁉️
 
 Because it's fun
