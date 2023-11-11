@@ -1,2 +1,7 @@
-build
+__pycache__/
+build/
+dist/
+pdm-lock
 .pdm-python
+*.manifest
+*.spec
