@@ -4,5 +4,5 @@ version = ""
 description = ""
 authors = [{ name = "Julio Formiga", email = "julio.formiga@gmail.com" }]
 license = { text = "MIT" }
-dependencies = []
-requires-python = ">=3.8,<=3.11"
+dependencies = ["rich>=13.6.0", "pyinstaller>=6.1.0"]
+requires-python = ">=3.8,<3.12"
