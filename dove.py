@@ -4,8 +4,8 @@ from rich.columns import Columns
 from rich.panel import Panel
 from rich import box
 
-# FILE = "/nfs/sgoinfre/goinfre/Perso/who.cache"
-FILE = "./who.cache.example"
+FILE = "/nfs/sgoinfre/goinfre/Perso/who.cache"
+# FILE = "./who.cache.example"
 
 console = Console()
 
