@@ -4,6 +4,9 @@ from rich.columns import Columns
 from rich.panel import Panel
 from rich import box
 
+# FILE = "/nfs/sgoinfre/goinfre/Perso/who.cache"
+FILE = "./who.cache.example"
+
 console = Console()
 
 search = ""
@@ -32,7 +35,7 @@ def positions():
 
 
 def get_users():
-    with open("/nfs/sgoinfre/goinfre/Perso/who.cache") as f:
+    with open(FILE) as f:
         user = {}
         for i, line in enumerate(f.readlines()):
             user[i] = {}
@@ -69,8 +72,8 @@ def print_room(room):
         user = get_user(users, location)
         if user:
             login = user["login"]
+            border_color = "white" if search != login else "bright_green"
             login = login.replace(search, f"[bright_green]{search}[/bright_green]")
-            border_color = "white"
             rooms[room]["online"] += 1
         pos_room.append(
             Panel(
