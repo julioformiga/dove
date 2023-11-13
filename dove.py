@@ -1,11 +1,12 @@
 import sys
+import os
 from rich.console import Console
 from rich.columns import Columns
 from rich.panel import Panel
 from rich import box
 
+USER = os.getlogin()
 FILE = "/nfs/sgoinfre/goinfre/Perso/who.cache"
-# FILE = "./who.cache.example"
 
 console = Console()
 
@@ -72,8 +73,12 @@ def print_room(room):
         user = get_user(users, location)
         if user:
             login = user["login"]
-            border_color = "white" if search != login else "bright_green"
-            login = login.replace(search, f"[bright_green]{search}[/bright_green]")
+            if login == USER:
+                border_color = "dodger_blue1"
+                login = "[dodger_blue1]SONO QUI[/dodger_blue1]"
+            else:
+                border_color = "white" if search != login else "bright_green"
+                login = login.replace(search, f"[bright_green]{search}[/bright_green]")
             rooms[room]["online"] += 1
         pos_room.append(
             Panel(
