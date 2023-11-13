@@ -7,12 +7,6 @@ A temporary way of looking for users in 42 Firenze
 ```bash
 git clone https://github.com/julioformiga/dove.git
 cd dove
-./dist/dove_example user3
-```
-
-or in 42 Firenze
-
-```bash
 ./dist/dove [user]
 ```
 
@@ -20,12 +14,18 @@ or in 42 Firenze
 
 ## 🐍 For careful (and friendly Python) users
 
-Install Rich and Pyinstaller lib
+Requirements:
+
+- Python >=3.8
+- Rich
+
+```bash
+pip install rich
+python dove.py
+```
+
+- Pyinstaller (optional)
 
 ```bash
 pyinstaller -F dove.py
 ```
-
-## Why⁉️
-
-Because it's fun
