@@ -55,8 +55,8 @@ def get_user(users, location):
 users = get_users()
 
 rooms = {
-    0: {"name": "🐾 Wakanda 🐾", "width": 170, "online": 0},
-    1: {"name": "⛰️  Nidavellir ⛰️", "width": 185, "online": 0},
+    0: {"name": "🐾 Wakanda 🐾", "width": 180, "online": 0},
+    1: {"name": "⛰️  Nidavellir ⛰️", "width": 195, "online": 0},
 }
 
 
@@ -68,7 +68,7 @@ def print_room(room):
         login = ""
         pos = location.split("p")[1]
 
-        if (room == 0 and pos == "7") or (room == 1 and pos == "3"):
+        if (room == 0 and pos == "7") or (room == 1 and (pos == "3" or pos == "8")):
             pos_room.append(Panel("", width=5, box=box.MINIMAL))
         user = get_user(users, location)
         if user:
