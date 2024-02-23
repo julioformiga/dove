@@ -39,9 +39,10 @@ def get_users():
     with open(FILE) as f:
         user = {}
         for i, line in enumerate(f.readlines()):
-            user[i] = {}
-            user[i]["login"] = line.split(" - ")[0].strip()
-            user[i]["location"] = line.split(" - ")[1].strip()
+            if len(line) < 20:
+                user[i] = {}
+                user[i]["login"] = line.split(" - ")[0].strip()
+                user[i]["location"] = line.split(" - ")[1].strip()
         return user
 
 
