@@ -1,13 +1,17 @@
 import sys
 import os
+import requests
 from rich.console import Console
 from rich.columns import Columns
 from rich.panel import Panel
 from rich import box
 
 USER = os.getlogin()
-FILE = "/nfs/sgoinfre/goinfre/Perso/who.cache"
-
+# FILE = "/nfs/sgoinfre/goinfre/Perso/who.cache"
+URL = "http://10.52.1.9/ecole42/42-findmypeer/who.cache"
+data = requests.get(URL)
+data = data.text
+FILE = [line for line in data.split("\n") if line.strip() != ""]
 console = Console()
 
 search = ""
@@ -35,15 +39,25 @@ def positions():
     return positions
 
 
+# def get_users():
+#     with open(FILE) as f:
+#         user = {}
+#         for i, line in enumerate(f.readlines()):
+#             if len(line) < 20:
+#                 user[i] = {}
+#                 user[i]["login"] = line.split(" - ")[0].strip()
+#                 user[i]["location"] = line.split(" - ")[1].strip()
+#         return user
+
+
 def get_users():
-    with open(FILE) as f:
-        user = {}
-        for i, line in enumerate(f.readlines()):
-            if len(line) < 20:
-                user[i] = {}
-                user[i]["login"] = line.split(" - ")[0].strip()
-                user[i]["location"] = line.split(" - ")[1].strip()
-        return user
+    user = {}
+    for i, line in enumerate(FILE):
+        if len(line) < 20:
+            user[i] = {}
+            user[i]["login"] = line.split(" - ")[0].strip()
+            user[i]["location"] = line.split(" - ")[1].strip()
+    return user
 
 
 def get_user(users, location):
