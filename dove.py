@@ -1,6 +1,9 @@
 import sys
 import os
-import requests
+
+from datetime import datetime, timedelta
+import urllib.request
+import json
 from rich.console import Console
 from rich.columns import Columns
 from rich.panel import Panel
@@ -8,10 +11,13 @@ from rich import box
 
 USER = os.getlogin()
 # FILE = "/nfs/sgoinfre/goinfre/Perso/who.cache"
-URL = "http://10.52.1.9/ecole42/42-findmypeer/who.cache"
-data = requests.get(URL)
-data = data.text
-FILE = [line for line in data.split("\n") if line.strip() != ""]
+# URL = "http://10.52.1.9/ecole42/42-findmypeer/who.cache"
+time_search = datetime.today().now() - timedelta(minutes=1)
+URL = "http://10.52.1.9/ecole42/get_json.php?datetime="
+URL += time_search.strftime("%Y-%m-%d%%20%H:%M")
+with urllib.request.urlopen(URL) as url:
+    data = json.loads(url.read().decode())
+# FILE = [line for line in data.split("\n") if line.strip() != ""]
 console = Console()
 
 search = ""
@@ -50,13 +56,22 @@ def positions():
 #         return user
 
 
-def get_users():
+# def get_users():
+#     user = {}
+#     for i, line in enumerate(FILE):
+#         if len(line) < 20:
+#             user[i] = {}
+#             user[i]["login"] = line.split(" - ")[0].strip()
+#             user[i]["location"] = line.split(" - ")[1].strip()
+#     return user
+
+
+def get_users(data):
     user = {}
-    for i, line in enumerate(FILE):
-        if len(line) < 20:
-            user[i] = {}
-            user[i]["login"] = line.split(" - ")[0].strip()
-            user[i]["location"] = line.split(" - ")[1].strip()
+    for i, u in enumerate(data):
+        user[i] = {}
+        user[i]["login"] = u["username"]
+        user[i]["location"] = u["hostname"]["raw"]
     return user
 
 
@@ -67,7 +82,7 @@ def get_user(users, location):
     return None
 
 
-users = get_users()
+users = get_users(data)
 
 rooms = {
     0: {"name": "🐾 Wakanda 🐾", "width": 180, "online": 0},
@@ -117,7 +132,7 @@ def print_room(room):
             width=rooms[room]["width"],
             border_style="white",
             padding=(1, 0, 1, 0),
-            subtitle=f"{rooms[room]['online']} 👤 / {len(r)} 🖥️ ",
+            subtitle=f"📆 {time_search.strftime('%d/%m/%Y ⌚ %H:%M')} | {rooms[room]['online']} 👤 / {len(r)} 🖥️ ",
             subtitle_align="right",
         )
     )
