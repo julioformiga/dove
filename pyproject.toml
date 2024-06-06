@@ -4,7 +4,12 @@ version = "0.1.0"
 description = ""
 authors = [{ name = "Julio Formiga", email = "julio.formiga@gmail.com" }]
 license = { text = "MIT" }
-dependencies = ["rich>=13.6.0", "pyinstaller>=6.1.0", "requests>=2.32.3"]
+dependencies = [
+    "rich>=13.6.0",
+    "pyinstaller>=6.1.0",
+    "requests>=2.32.3",
+    "textual>=0.65.0",
+]
 requires-python = "==3.8.*"
 
 [tool.pdm]

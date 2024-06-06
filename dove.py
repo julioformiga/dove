@@ -8,16 +8,16 @@ from rich.console import Console
 from rich.columns import Columns
 from rich.panel import Panel
 from rich import box
+from textual.app import App, ComposeResult
+from textual.widgets import Footer, Header
+
 
 USER = os.getlogin()
-# FILE = "/nfs/sgoinfre/goinfre/Perso/who.cache"
-# URL = "http://10.52.1.9/ecole42/42-findmypeer/who.cache"
-time_search = datetime.today().now() - timedelta(minutes=1)
 URL = "http://10.52.1.9/ecole42/get_json.php?datetime="
+time_search = datetime.today().now() - timedelta(minutes=1)
 URL += time_search.strftime("%Y-%m-%d%%20%H:%M")
 with urllib.request.urlopen(URL) as url:
     data = json.loads(url.read().decode())
-# FILE = [line for line in data.split("\n") if line.strip() != ""]
 console = Console()
 
 search = ""
@@ -43,27 +43,6 @@ def positions():
     positions[0] = c1
     positions[1] = c2
     return positions
-
-
-# def get_users():
-#     with open(FILE) as f:
-#         user = {}
-#         for i, line in enumerate(f.readlines()):
-#             if len(line) < 20:
-#                 user[i] = {}
-#                 user[i]["login"] = line.split(" - ")[0].strip()
-#                 user[i]["location"] = line.split(" - ")[1].strip()
-#         return user
-
-
-# def get_users():
-#     user = {}
-#     for i, line in enumerate(FILE):
-#         if len(line) < 20:
-#             user[i] = {}
-#             user[i]["login"] = line.split(" - ")[0].strip()
-#             user[i]["location"] = line.split(" - ")[1].strip()
-#     return user
 
 
 def get_users(data):
@@ -138,12 +117,28 @@ def print_room(room):
     )
 
 
-if len(sys.argv) == 2:
-    if sys.argv[1] == "0" or sys.argv[1] == "1":
-        print_room(int(sys.argv[1]))
-    else:
-        print_room(0)
-        print_room(1)
-else:
-    print_room(0)
-    print_room(1)
+class DoveApp(App):
+    TITLE = "42 Dovè..."
+    BINDINGS = [
+        ("q", "quit", "Quit"),
+        ("d", "toggle_dark", "Change theme"),
+    ]
+
+    def compose(self) -> ComposeResult:
+        yield Header()
+        yield Footer()
+
+
+# if len(sys.argv) == 2:
+#     if sys.argv[1] == "0" or sys.argv[1] == "1":
+#         print_room(int(sys.argv[1]))
+#     else:
+#         print_room(0)
+#         print_room(1)
+# else:
+#     print_room(0)
+#     print_room(1)
+
+if __name__ == "__main__":
+    app = DoveApp()
+    app.run()
